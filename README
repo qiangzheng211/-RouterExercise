@@ -1,0 +1,29 @@
+Start:
+IMPORTANT:
+(1) Put router1.py in the path /home/mininet/pox/pox/misc
+(2) Put mytopo1.py in the path /home/mininet
+
+1.controller
+$ cd pox
+$ ./pox.py log.level --DEBUG misc.router1 misc.full_payload
+
+2.open another window, topo
+$ sudo mn --custom mytopo1.py --topo mytopo --mac --switch ovsk --controller remote
+
+Test:
+1. Test  unknown address that yield unreachable message
+mininet>h1 ping -c1 10.99.0.1
+
+2. Test known address and pingable
+mininet>h1 ping -c1 h2
+
+3. Test pingall
+mininet>pingall
+
+4. iperf
+(1) mininet>iperf
+(2) mininet>xterm h1 h3
+in host3:
+$ iperf -s
+in host1:
+$ iperf -c 10.0.3.100
